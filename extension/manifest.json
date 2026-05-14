@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "MediaAnalytics",
+  "version": "1.0.0",
+  "description": "B站视频内容提取助手",
+  "permissions": ["activeTab", "storage"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "MediaAnalytics"
+  },
+  "host_permissions": [
+    "http://127.0.0.1:8765/*"
+  ]
+}
