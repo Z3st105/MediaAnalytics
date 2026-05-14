@@ -2,7 +2,10 @@
 import sqlite3
 import os
 
-DB_PATH = r"E:\MediaAnalytics\media_analytics.db"
+# Resolve project root (parent of backend/)
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+DB_PATH = os.environ.get("MEDIA_ANALYTICS_DB", os.path.join(PROJECT_ROOT, "db", "media_analytics.db"))
 
 
 def get_connection():

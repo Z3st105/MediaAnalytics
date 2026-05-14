@@ -4,11 +4,15 @@ import subprocess
 import sys
 from datetime import datetime
 
-GPT_SOVITS_ROOT = r"D:\AI音库\GPT-SoVITS-v2pro-20250604"
-PYTHON_EXE = os.path.join(GPT_SOVITS_ROOT, "runtime", "python.exe")
-FFMPEG_PATH = r"D:\biliive-tool\resources\app.asar.unpacked\resources\bin"
+# Resolve project root (parent of backend/)
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-TRANSCRIPTS_DIR = r"D:\MediaAnalytics\transcripts"
+# Configurable via environment variables
+GPT_SOVITS_ROOT = os.environ.get("GPT_SOVITS_ROOT", r"D:\AI音库\GPT-SoVITS-v2pro-20250604")
+PYTHON_EXE = os.path.join(GPT_SOVITS_ROOT, "runtime", "python.exe")
+FFMPEG_PATH = os.environ.get("FFMPEG_PATH", r"D:\biliive-tool\resources\app.asar.unpacked\resources\bin")
+
+TRANSCRIPTS_DIR = os.path.join(PROJECT_ROOT, "transcripts")
 
 
 def log(msg):

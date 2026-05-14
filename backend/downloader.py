@@ -3,10 +3,13 @@ import os
 import re
 import subprocess
 
-DOWNLOADS_DIR = r"D:\MediaAnalytics\downloads"
+# Resolve project root (parent of backend/)
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# ffmpeg from biliive-tool
-FFMPEG_PATH = r"D:\biliive-tool\resources\app.asar.unpacked\resources\bin\ffmpeg.exe"
+DOWNLOADS_DIR = os.path.join(PROJECT_ROOT, "downloads")
+
+# ffmpeg path - configurable via environment variable
+FFMPEG_PATH = os.environ.get("FFMPEG_EXE", r"D:\biliive-tool\resources\app.asar.unpacked\resources\bin\ffmpeg.exe")
 
 
 def extract_bvid(url: str) -> str:
