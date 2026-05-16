@@ -108,13 +108,13 @@ function renderVideoCard(video) {
         <span class="field-name">转录文案${tLen ? ` (${tLen}字)` : ''}</span>
         ${transcript ? `<button class="btn btn-copy" data-action="copy" data-target="transcript-${video.id}">复制</button>` : '<span class="field-pending">等待转录...</span>'}
       </div>
-      ${tPreview ? `<div class="field-preview" id="transcript-${video.id}">${tPreview}</div>` : ''}
+      ${tPreview ? `<div class="field-preview" id="transcript-${video.id}" data-full-text="${transcript.replace(/"/g, '&quot;')}">${tPreview}</div>` : ''}
 
       <div class="field-row">
         <span class="field-name">AI 解析${aLen ? ` (${aLen}字)` : ''}</span>
         ${analysis ? `<button class="btn btn-copy" data-action="copy" data-target="analysis-${video.id}">复制</button>` : `<button class="btn btn-save" data-action="paste" data-id="${video.id}">粘贴</button>`}
       </div>
-      ${aPreview ? `<div class="field-preview" id="analysis-${video.id}">${aPreview}</div>` : ''}
+      ${aPreview ? `<div class="field-preview" id="analysis-${video.id}" data-full-text="${analysis.replace(/"/g, '&quot;')}">${aPreview}</div>` : ''}
     </div>
   `;
 }
@@ -198,7 +198,8 @@ async function retryVideo(id) {
 
 function copyText(elementId) {
   const el = document.getElementById(elementId);
-  const text = el.textContent;
+  // 优先读取 data-full-text（完整原文），不存在则回退到 textContent（预览）
+  const text = el.dataset.fullText || el.textContent;
   navigator.clipboard.writeText(text).then(() => {
     showToast('已复制到剪贴板');
   }).catch(() => {
